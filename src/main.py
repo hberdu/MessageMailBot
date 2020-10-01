@@ -2,7 +2,6 @@ import discord
 from discord.message import MessageType
 import os.path
 
-
 emails = list()
 
 if os.path.isfile('emails.txt'):
@@ -18,7 +17,6 @@ def write_emails(mails, *args):
         with open('emails.txt','w') as f:
             f.write(mail+"\n")
 
-
 def send_email(recipient, body):
 
     import smtplib
@@ -29,8 +27,8 @@ def send_email(recipient, body):
     print(body+"\n")
     print("------")
 
-    gmail_user = 'mail'
-    gmail_pwd = 'pwd'
+    gmail_user = 'eadbotifsp@gmail.com'
+    gmail_pwd = 'ifsp1918'
     FROM = 'from'
     TO = recipient if type(recipient) is list else [recipient]
     SUBJECT = 'subject'
@@ -66,7 +64,8 @@ async def on_ready():
 async def on_message(message):
     if message.content == "!list":
         for email in emails:
-            await client.send_message(message.channel, content=str(email))
+            channel = message.channel
+            await channel.send(content=str(subject))
 
     elif message.content[:4] == "!add":
         print("Added "+message.content[5:]+" to emails")
@@ -78,9 +77,8 @@ async def on_message(message):
         write_emails(emails, message.content[5:])
 
     elif message.type is MessageType.default:
-        if str(message.author) != 'botuser':
+        if str(message.author) != 'EAD Bot':
             for email in emails:
                 send_email(email, message.content)
 
-
-client.run('token')
+client.run('NzYxMTE1ODM3NzA4MzY5OTUw.X3V6XA.bM3FEjLcyGeUbLQp3DhY9CWRYu0')
